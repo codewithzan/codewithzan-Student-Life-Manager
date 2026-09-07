@@ -1,0 +1,479 @@
+/* ============================================================
+   JAPANESE STUDENT LIFE MANAGER
+   responsive.css — Responsive & Mobile Styles
+   ============================================================ */
+
+/* ============================================================
+   LARGE DESKTOP (1400px+)
+   ============================================================ */
+@media (min-width: 1400px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .dashboard-grid .dash-card--wide {
+    grid-column: 1 / -1;
+  }
+
+  .settings-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ============================================================
+   TABLET (768px–1199px)
+   ============================================================ */
+@media (max-width: 1199px) {
+  :root {
+    --sidebar-width: 240px;
+  }
+
+  .stats-grid,
+  .stats-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid .dash-card--wide {
+    grid-column: auto;
+  }
+
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jlpt-progress-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid--2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   MOBILE (< 768px)
+   ============================================================ */
+@media (max-width: 767px) {
+
+  /* Sidebar becomes off-canvas on mobile */
+  .sidebar {
+    transform: translateX(-100%);
+    width: var(--sidebar-width);
+    z-index: 300;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .sidebar.sidebar--open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close {
+    display: flex;
+  }
+
+  .sidebar-overlay.sidebar-overlay--visible {
+    display: block;
+  }
+
+  /* Main content takes full width */
+  .main-content {
+    margin-left: 0;
+  }
+
+  /* Top Bar */
+  .topbar {
+    padding: 0 var(--spacing-4);
+    gap: var(--spacing-3);
+  }
+
+  .topbar-menu-btn {
+    display: flex;
+  }
+
+  .topbar-date {
+    display: none;
+  }
+
+  .topbar-title {
+    font-size: var(--font-size-md);
+  }
+
+  /* Auth Page */
+  .auth-page {
+    padding: var(--spacing-4);
+    align-items: flex-start;
+    padding-top: var(--spacing-8);
+  }
+
+  .auth-card {
+    padding: var(--spacing-6);
+    border-radius: var(--radius-lg);
+  }
+
+  .auth-logo-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .auth-title {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Section */
+  .section {
+    padding: var(--spacing-5) var(--spacing-4);
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-5);
+  }
+
+  .section-title {
+    font-size: var(--font-size-xl);
+  }
+
+  /* Stats Grid */
+  .stats-grid,
+  .stats-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-5);
+  }
+
+  .stat-card {
+    padding: var(--spacing-4);
+    gap: var(--spacing-3);
+  }
+
+  .stat-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+
+  .stat-value {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Dashboard Grid */
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+  }
+
+  .dashboard-grid--2 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Form */
+  .form-row {
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .form-row .form-group {
+    min-width: 0;
+  }
+
+  /* Modals */
+  .modal-overlay {
+    padding: var(--spacing-3);
+    align-items: flex-end;
+  }
+
+  .modal {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    max-height: 92vh;
+    animation: slideUpMobile var(--transition-base) ease-out;
+  }
+
+  @keyframes slideUpMobile {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* Toast */
+  .toast-container {
+    right: var(--spacing-3);
+    left: var(--spacing-3);
+    top: calc(var(--topbar-height) + var(--spacing-3));
+  }
+
+  .toast {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* View Toggle */
+  .view-toggle {
+    gap: var(--spacing-1);
+  }
+
+  .view-btn {
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: var(--font-size-xs);
+  }
+
+  /* Filter Bar */
+  .filter-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+  }
+
+  .filter-select {
+    min-width: 100%;
+  }
+
+  /* Schedule - Weekly Grid */
+  .weekly-grid {
+    grid-template-columns: 50px repeat(7, 1fr);
+    font-size: 0.6rem;
+    overflow-x: auto;
+  }
+
+  /* JLPT */
+  .jlpt-levels {
+    gap: var(--spacing-2);
+  }
+
+  .jlpt-level-btn {
+    width: 56px;
+    height: 56px;
+    font-size: var(--font-size-lg);
+  }
+
+  .jlpt-exam-info {
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .countdown-num {
+    font-size: 3.5rem;
+  }
+
+  .jlpt-progress-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tasks */
+  .task-filter-tabs {
+    overflow-x: auto;
+    padding-bottom: var(--spacing-2);
+    flex-wrap: nowrap;
+  }
+
+  .task-filter-btn {
+    white-space: nowrap;
+  }
+
+  /* Calendar */
+  .calendar-nav {
+    gap: var(--spacing-2);
+  }
+
+  .cal-current-period {
+    font-size: var(--font-size-lg);
+  }
+
+  .cal-month-cell {
+    min-height: 60px;
+    padding: var(--spacing-1);
+  }
+
+  .cal-event-chip {
+    display: none;
+  }
+
+  .calendar-legend {
+    gap: var(--spacing-3);
+  }
+
+  /* Settings */
+  .settings-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+  }
+
+  /* Shift Calc Preview */
+  .shift-calc-preview {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  /* List Items */
+  .list-item {
+    padding: var(--spacing-3) var(--spacing-4);
+  }
+
+  .list-item-actions {
+    opacity: 1;
+  }
+
+  /* Section Header button */
+  .section-header .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   EXTRA SMALL (< 480px)
+   ============================================================ */
+@media (max-width: 479px) {
+  .stats-grid,
+  .stats-grid--4 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-value {
+    font-size: var(--font-size-md);
+  }
+
+  .jlpt-level-btn {
+    width: 50px;
+    height: 50px;
+    font-size: var(--font-size-md);
+  }
+
+  .auth-card {
+    padding: var(--spacing-5);
+  }
+
+  .section {
+    padding: var(--spacing-4) var(--spacing-3);
+  }
+
+  .dash-card-header {
+    padding: var(--spacing-4) var(--spacing-4) var(--spacing-2);
+  }
+
+  .dash-card-body {
+    padding: var(--spacing-2) var(--spacing-4) var(--spacing-4);
+  }
+
+  .modal-body {
+    padding: var(--spacing-4);
+  }
+
+  .modal-header {
+    padding: var(--spacing-4);
+  }
+
+  .topbar-notif {
+    display: none;
+  }
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+  .sidebar,
+  .topbar,
+  .btn,
+  .filter-bar,
+  .modal-overlay,
+  .toast-container {
+    display: none !important;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .section {
+    padding: 0;
+  }
+
+  body {
+    background-color: white;
+    color: black;
+  }
+}
+
+/* ============================================================
+   HIGH CONTRAST MODE
+   ============================================================ */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: #666;
+    --color-text-muted: #444;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   FOCUS VISIBLE — Keyboard Navigation
+   ============================================================ */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Override for items that have their own focus style */
+.form-input:focus-visible,
+.form-textarea:focus-visible {
+  outline: none;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   DARK MODE (respects system preference)
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0F0F14;
+    --color-surface: #1A1A24;
+    --color-surface-alt: #22222E;
+    --color-text-primary: #F0F0F5;
+    --color-text-secondary: #B0B0C0;
+    --color-text-muted: #70708A;
+    --color-border: #2E2E3E;
+    --color-border-focus: var(--color-primary);
+
+    --color-income-muted: rgba(45, 198, 83, 0.15);
+    --color-expense-muted: rgba(230, 57, 70, 0.15);
+    --color-savings-muted: rgba(69, 123, 157, 0.15);
+    --color-study-muted: rgba(244, 162, 97, 0.15);
+    --color-primary-muted: rgba(230, 57, 70, 0.15);
+    --color-secondary-muted: rgba(69, 123, 157, 0.15);
+    --color-success-muted: rgba(45, 198, 83, 0.15);
+    --color-warning-muted: rgba(244, 162, 97, 0.18);
+    --color-danger-muted: rgba(230, 57, 70, 0.15);
+    --color-info-muted: rgba(69, 123, 157, 0.15);
+
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);
+    --shadow-lg: 0 10px 30px rgba(0,0,0,0.4), 0 4px 10px rgba(0,0,0,0.2);
+    --shadow-xl: 0 20px 60px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.3);
+  }
+}
