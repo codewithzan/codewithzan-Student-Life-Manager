@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Japanese Student Life Manager 🇯🇵</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <!-- Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="dashboard-page">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">
+          <span class="logo-kanji">学</span>
+        </div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-main">Student Life</span>
+          <span class="sidebar-logo-sub">Manager 🇯🇵</span>
+        </div>
+      </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+
+    <!-- User Profile -->
+    <div class="sidebar-profile" id="sidebar-profile">
+      <div class="sidebar-avatar" id="sidebar-avatar">
+        <span id="avatar-initials">--</span>
+      </div>
+      <div class="sidebar-user-info">
+        <span class="sidebar-username" id="sidebar-username">Loading...</span>
+        <span class="sidebar-university" id="sidebar-university">Student</span>
+      </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="sidebar-nav" role="menubar">
+      <ul class="nav-list">
+        <li class="nav-item" role="none">
+          <a href="#dashboard" class="nav-link nav-link--active" data-section="dashboard" role="menuitem">
+            <ion-icon name="grid-outline" class="nav-icon"></ion-icon>
+            <span class="nav-label">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item" role="none">
+          <a href="#schedule" class="nav-link" data-section="schedule" role="menuitem">
+            <ion-icon name="book-outline" class="nav-icon"></ion-icon>
+            <span class="nav-label">Schedule</span>
+          </a>
+        </li>
+        <li class="nav-item" role="none">
+          <a href="#shifts" class="nav-link" data-section="shifts" role="menuitem">
+            <ion-icon name="briefcase-outline" class="nav-icon"></ion-icon>
+            <span class="nav-label">Part-Time Job</span>
+          </a>
+        </li>
+        <li class="nav-item" role="none">
+          <a href="#expenses" class="nav-link" data-section="expenses" role="menuitem">
+            <ion-icon name="wallet-outline" class="nav-icon"></ion-icon>
+            <span class="nav-label">Expenses</span>
+          </a>
+        </li>
+        <li class="nav-item" role="none">
+          <a href="#study" class="nav-link" data-section="study" role="menuitem">
+            <ion-icon name="library-outline" class="nav-icon"></ion-icon>
+            <span class="nav-label">Japanese Study</span>
+          </a>
+        </li>
+        <li class="nav-item" role="none">
+          <a href="#jlpt" class="nav-link" data-section="jlpt" role="menuitem">
+            <ion-icon name="trophy-outline" class="nav-icon"></ion-icon>
+            <span class="nav-label">JLPT</span>
+          </a>
+        </li>
+        <li class="nav-item" role="none">
+          <a href="#tasks" class="nav-link" data-section="tasks" role="menuitem">
+            <ion-icon name="checkmark-circle-outline" class="nav-icon"></ion-icon>
+            <span class="nav-label">Tasks</span>
+          </a>
+        </li>
+        <li class="nav-item" role="none">
+          <a href="#calendar" class="nav-link" data-section="calendar" role="menuitem">
+            <ion-icon name="calendar-outline" class="nav-icon"></ion-icon>
+            <span class="nav-label">Calendar</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-divider" role="separator"></div>
+
+      <ul class="nav-list">
+        <li class="nav-item" role="none">
+          <a href="#settings" class="nav-link" data-section="settings" role="menuitem">
+            <ion-icon name="settings-outline" class="nav-icon"></ion-icon>
+            <span class="nav-label">Settings</span>
+          </a>
+        </li>
+        <li class="nav-item" role="none">
+          <button class="nav-link nav-link--logout" id="logout-btn" role="menuitem">
+            <ion-icon name="log-out-outline" class="nav-icon"></ion-icon>
+            <span class="nav-label">Logout</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <span>© 2025 Student Life Manager</span>
+    </div>
+  </aside>
+
+  <!-- Overlay for mobile sidebar -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content" id="main-content">
+
+    <!-- Top Bar -->
+    <header class="topbar" role="banner">
+      <button class="topbar-menu-btn" id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-actions">
+        <div class="topbar-date" id="topbar-date"></div>
+        <button class="topbar-notif" aria-label="Notifications">
+          <ion-icon name="notifications-outline"></ion-icon>
+          <span class="notif-badge" id="notif-badge">0</span>
+        </button>
+        <div class="topbar-avatar" id="topbar-avatar">
+          <span id="topbar-initials">--</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Notification Toast -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- ===== SECTIONS ===== -->
+
+    <!-- ===== DASHBOARD SECTION ===== -->
+    <section class="section" id="section-dashboard" data-section="dashboard">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Good morning! <span id="dash-greeting-name"></span> 👋</h2>
+          <p class="section-subtitle" id="dash-greeting-sub">Here's your overview for today.</p>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card stat-card--income">
+          <div class="stat-icon">
+            <ion-icon name="cash-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Monthly Income</span>
+            <span class="stat-value" id="stat-income">¥0</span>
+            <span class="stat-change" id="stat-income-change">This month</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--expense">
+          <div class="stat-icon">
+            <ion-icon name="card-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Monthly Expenses</span>
+            <span class="stat-value" id="stat-expenses">¥0</span>
+            <span class="stat-change" id="stat-expense-change">This month</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--savings">
+          <div class="stat-icon">
+            <ion-icon name="trending-up-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Savings</span>
+            <span class="stat-value" id="stat-savings">¥0</span>
+            <span class="stat-change" id="stat-savings-pct">Income - Expenses</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--study">
+          <div class="stat-icon">
+            <ion-icon name="flame-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Study Streak</span>
+            <span class="stat-value" id="stat-streak">0 days</span>
+            <span class="stat-change" id="stat-study-hours">0 hrs this month</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Grid -->
+      <div class="dashboard-grid">
+
+        <!-- Today's Classes -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3 class="dash-card-title">
+              <ion-icon name="book-outline"></ion-icon>
+              Today's Classes
+            </h3>
+            <a href="#schedule" class="dash-card-link" data-nav="schedule">View all</a>
+          </div>
+          <div class="dash-card-body" id="dash-classes">
+            <div class="empty-state empty-state--small">
+              <ion-icon name="book-outline"></ion-icon>
+              <p>No classes today</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Shifts -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3 class="dash-card-title">
+              <ion-icon name="briefcase-outline"></ion-icon>
+              Upcoming Shifts
+            </h3>
+            <a href="#shifts" class="dash-card-link" data-nav="shifts">View all</a>
+          </div>
+          <div class="dash-card-body" id="dash-shifts">
+            <div class="empty-state empty-state--small">
+              <ion-icon name="briefcase-outline"></ion-icon>
+              <p>No upcoming shifts</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- JLPT Countdown -->
+        <div class="dash-card dash-card--accent">
+          <div class="dash-card-header">
+            <h3 class="dash-card-title">
+              <ion-icon name="trophy-outline"></ion-icon>
+              JLPT Countdown
+            </h3>
+            <a href="#jlpt" class="dash-card-link" data-nav="jlpt">Prepare</a>
+          </div>
+          <div class="dash-card-body" id="dash-jlpt">
+            <div class="jlpt-countdown-widget">
+              <div class="countdown-days" id="dash-jlpt-days">--</div>
+              <div class="countdown-label" id="dash-jlpt-label">Days until JLPT</div>
+              <div class="countdown-level" id="dash-jlpt-level">Set your goal in JLPT section</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pending Tasks -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3 class="dash-card-title">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              Pending Tasks
+            </h3>
+            <a href="#tasks" class="dash-card-link" data-nav="tasks">View all</a>
+          </div>
+          <div class="dash-card-body" id="dash-tasks">
+            <div class="empty-state empty-state--small">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              <p>No pending tasks</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Income vs Expenses Chart -->
+        <div class="dash-card dash-card--wide">
+          <div class="dash-card-header">
+            <h3 class="dash-card-title">
+              <ion-icon name="bar-chart-outline"></ion-icon>
+              Income vs Expenses (6 Months)
+            </h3>
+          </div>
+          <div class="dash-card-body">
+            <div class="chart-container">
+              <canvas id="income-expense-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Study Hours Chart -->
+        <div class="dash-card dash-card--wide">
+          <div class="dash-card-header">
+            <h3 class="dash-card-title">
+              <ion-icon name="time-outline"></ion-icon>
+              Study Hours (This Week)
+            </h3>
+          </div>
+          <div class="dash-card-body">
+            <div class="chart-container">
+              <canvas id="study-hours-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== SCHEDULE SECTION ===== -->
+    <section class="section hidden" id="section-schedule" data-section="schedule">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">School Schedule</h2>
+          <p class="section-subtitle">Manage your classes and academic timetable</p>
+        </div>
+        <button class="btn btn--primary" id="add-class-btn">
+          <ion-icon name="add-outline"></ion-icon>
+          Add Class
+        </button>
+      </div>
+
+      <!-- Schedule View Toggle -->
+      <div class="view-toggle">
+        <button class="view-btn view-btn--active" data-view="weekly" id="schedule-weekly-btn">Weekly View</button>
+        <button class="view-btn" data-view="list" id="schedule-list-btn">List View</button>
+      </div>
+
+      <!-- Weekly View -->
+      <div id="schedule-weekly-view">
+        <div class="weekly-grid" id="weekly-grid">
+          <!-- Generated by JS -->
+        </div>
+      </div>
+
+      <!-- List View -->
+      <div id="schedule-list-view" class="hidden">
+        <div class="list-container" id="schedule-list">
+          <div class="empty-state">
+            <ion-icon name="book-outline"></ion-icon>
+            <h3>No Classes Yet</h3>
+            <p>Add your first class to get started</p>
+            <button class="btn btn--primary" id="add-class-btn-empty">
+              <ion-icon name="add-outline"></ion-icon>
+              Add Class
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SHIFTS SECTION ===== -->
+    <section class="section hidden" id="section-shifts" data-section="shifts">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Part-Time Job Manager</h2>
+          <p class="section-subtitle">Track your work shifts and calculate income</p>
+        </div>
+        <button class="btn btn--primary" id="add-shift-btn">
+          <ion-icon name="add-outline"></ion-icon>
+          Log Shift
+        </button>
+      </div>
+
+      <!-- Shift Stats -->
+      <div class="stats-grid stats-grid--4">
+        <div class="stat-card stat-card--income">
+          <div class="stat-icon"><ion-icon name="time-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Hours This Month</span>
+            <span class="stat-value" id="shift-hours-month">0h</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--savings">
+          <div class="stat-icon"><ion-icon name="cash-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Estimated Income</span>
+            <span class="stat-value" id="shift-income-month">¥0</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--study">
+          <div class="stat-icon"><ion-icon name="today-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Shifts This Month</span>
+            <span class="stat-value" id="shift-count-month">0</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--expense">
+          <div class="stat-icon"><ion-icon name="calculator-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Avg Hourly Rate</span>
+            <span class="stat-value" id="shift-avg-rate">¥0/h</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Month Filter -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label class="filter-label">Month</label>
+          <input type="month" id="shift-month-filter" class="filter-select" />
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Workplace</label>
+          <select id="shift-workplace-filter" class="filter-select">
+            <option value="">All Workplaces</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Shifts List -->
+      <div class="list-container" id="shifts-list">
+        <div class="empty-state">
+          <ion-icon name="briefcase-outline"></ion-icon>
+          <h3>No Shifts Logged</h3>
+          <p>Start tracking your part-time work shifts</p>
+          <button class="btn btn--primary" id="add-shift-btn-empty">
+            <ion-icon name="add-outline"></ion-icon>
+            Log Shift
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EXPENSES SECTION ===== -->
+    <section class="section hidden" id="section-expenses" data-section="expenses">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Expense Tracker</h2>
+          <p class="section-subtitle">Monitor your spending and manage your budget</p>
+        </div>
+        <button class="btn btn--primary" id="add-expense-btn">
+          <ion-icon name="add-outline"></ion-icon>
+          Add Expense
+        </button>
+      </div>
+
+      <!-- Expense Stats -->
+      <div class="stats-grid stats-grid--4">
+        <div class="stat-card stat-card--expense">
+          <div class="stat-icon"><ion-icon name="card-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Total Expenses</span>
+            <span class="stat-value" id="exp-total">¥0</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--income">
+          <div class="stat-icon"><ion-icon name="restaurant-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Food</span>
+            <span class="stat-value" id="exp-food">¥0</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--savings">
+          <div class="stat-icon"><ion-icon name="train-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Transportation</span>
+            <span class="stat-value" id="exp-transport">¥0</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--study">
+          <div class="stat-icon"><ion-icon name="home-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Rent</span>
+            <span class="stat-value" id="exp-rent">¥0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="dashboard-grid dashboard-grid--2">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3 class="dash-card-title"><ion-icon name="pie-chart-outline"></ion-icon> By Category</h3>
+          </div>
+          <div class="chart-container chart-container--sm">
+            <canvas id="expense-category-chart"></canvas>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3 class="dash-card-title"><ion-icon name="bar-chart-outline"></ion-icon> Monthly Trend</h3>
+          </div>
+          <div class="chart-container chart-container--sm">
+            <canvas id="expense-trend-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label class="filter-label">Month</label>
+          <input type="month" id="expense-month-filter" class="filter-select" />
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Category</label>
+          <select id="expense-category-filter" class="filter-select">
+            <option value="">All Categories</option>
+            <option value="food">Food</option>
+            <option value="transportation">Transportation</option>
+            <option value="rent">Rent</option>
+            <option value="shopping">Shopping</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="study">Study</option>
+            <option value="bills">Bills</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Sort By</label>
+          <select id="expense-sort-filter" class="filter-select">
+            <option value="date-desc">Date (Newest)</option>
+            <option value="date-asc">Date (Oldest)</option>
+            <option value="amount-desc">Amount (High)</option>
+            <option value="amount-asc">Amount (Low)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Expenses List -->
+      <div class="list-container" id="expenses-list">
+        <div class="empty-state">
+          <ion-icon name="wallet-outline"></ion-icon>
+          <h3>No Expenses Yet</h3>
+          <p>Start tracking your daily expenses</p>
+          <button class="btn btn--primary" id="add-expense-btn-empty">
+            <ion-icon name="add-outline"></ion-icon>
+            Add Expense
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STUDY SECTION ===== -->
+    <section class="section hidden" id="section-study" data-section="study">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Japanese Study Tracker</h2>
+          <p class="section-subtitle">日本語学習トラッカー — Track your language learning progress</p>
+        </div>
+        <button class="btn btn--primary" id="add-study-btn">
+          <ion-icon name="add-outline"></ion-icon>
+          Log Session
+        </button>
+      </div>
+
+      <!-- Study Stats -->
+      <div class="stats-grid stats-grid--4">
+        <div class="stat-card stat-card--study">
+          <div class="stat-icon"><ion-icon name="flame-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Study Streak</span>
+            <span class="stat-value" id="study-streak-val">0 days</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--income">
+          <div class="stat-icon"><ion-icon name="time-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Hours This Month</span>
+            <span class="stat-value" id="study-hours-month">0h</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--savings">
+          <div class="stat-icon"><ion-icon name="today-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Hours This Week</span>
+            <span class="stat-value" id="study-hours-week">0h</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--expense">
+          <div class="stat-icon"><ion-icon name="star-outline"></ion-icon></div>
+          <div class="stat-info">
+            <span class="stat-label">Top Category</span>
+            <span class="stat-value" id="study-top-cat">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Study Category Breakdown -->
+      <div class="dashboard-grid dashboard-grid--2">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3 class="dash-card-title"><ion-icon name="pie-chart-outline"></ion-icon> Study by Category</h3>
+          </div>
+          <div class="chart-container chart-container--sm">
+            <canvas id="study-category-chart"></canvas>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3 class="dash-card-title"><ion-icon name="bar-chart-outline"></ion-icon> Daily Hours (This Week)</h3>
+          </div>
+          <div class="chart-container chart-container--sm">
+            <canvas id="study-weekly-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label class="filter-label">Month</label>
+          <input type="month" id="study-month-filter" class="filter-select" />
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Category</label>
+          <select id="study-category-filter" class="filter-select">
+            <option value="">All Categories</option>
+            <option value="vocabulary">Vocabulary</option>
+            <option value="kanji">Kanji</option>
+            <option value="grammar">Grammar</option>
+            <option value="listening">Listening</option>
+            <option value="reading">Reading</option>
+            <option value="speaking">Speaking</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Study Sessions List -->
+      <div class="list-container" id="study-list">
+        <div class="empty-state">
+          <ion-icon name="library-outline"></ion-icon>
+          <h3>No Study Sessions</h3>
+          <p>Begin logging your Japanese study sessions</p>
+          <button class="btn btn--primary" id="add-study-btn-empty">
+            <ion-icon name="add-outline"></ion-icon>
+            Log Session
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== JLPT SECTION ===== -->
+    <section class="section hidden" id="section-jlpt" data-section="jlpt">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">JLPT Preparation</h2>
+          <p class="section-subtitle">日本語能力試験 — Japanese Language Proficiency Test</p>
+        </div>
+        <button class="btn btn--primary" id="save-jlpt-btn">
+          <ion-icon name="save-outline"></ion-icon>
+          Save Goals
+        </button>
+      </div>
+
+      <!-- JLPT Level Selector -->
+      <div class="jlpt-level-selector" id="jlpt-level-selector">
+        <h3 class="subsection-title">Select Your Target Level</h3>
+        <div class="jlpt-levels">
+          <button class="jlpt-level-btn" data-level="N5">N5</button>
+          <button class="jlpt-level-btn" data-level="N4">N4</button>
+          <button class="jlpt-level-btn" data-level="N3">N3</button>
+          <button class="jlpt-level-btn" data-level="N2">N2</button>
+          <button class="jlpt-level-btn" data-level="N1">N1</button>
+        </div>
+      </div>
+
+      <!-- JLPT Countdown -->
+      <div class="jlpt-countdown-section">
+        <div class="jlpt-exam-info">
+          <div class="jlpt-exam-date-picker">
+            <label class="form-label">Exam Date</label>
+            <input type="date" id="jlpt-exam-date" class="form-input" />
+          </div>
+          <div class="jlpt-countdown-display">
+            <div class="countdown-large">
+              <span class="countdown-num" id="jlpt-days-count">--</span>
+              <span class="countdown-unit">days</span>
+            </div>
+            <p class="countdown-desc" id="jlpt-countdown-desc">Set your exam date to start countdown</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Tracking -->
+      <div class="jlpt-progress-section">
+        <h3 class="subsection-title">Progress Tracking</h3>
+        <div class="jlpt-progress-grid" id="jlpt-progress-grid">
+          <!-- Generated by JS -->
+        </div>
+      </div>
+
+      <!-- Study Plan -->
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h3 class="dash-card-title"><ion-icon name="document-text-outline"></ion-icon> Notes & Study Plan</h3>
+        </div>
+        <div class="dash-card-body">
+          <textarea id="jlpt-notes" class="form-textarea" placeholder="Write your JLPT study plan, notes, resources..." rows="6"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TASKS SECTION ===== -->
+    <section class="section hidden" id="section-tasks" data-section="tasks">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Task Manager</h2>
+          <p class="section-subtitle">Stay organized with your to-do list</p>
+        </div>
+        <button class="btn btn--primary" id="add-task-btn">
+          <ion-icon name="add-outline"></ion-icon>
+          Add Task
+        </button>
+      </div>
+
+      <!-- Task Filters -->
+      <div class="task-filter-tabs">
+        <button class="task-filter-btn task-filter-btn--active" data-filter="all">All</button>
+        <button class="task-filter-btn" data-filter="today">Today</button>
+        <button class="task-filter-btn" data-filter="upcoming">Upcoming</button>
+        <button class="task-filter-btn" data-filter="completed">Completed</button>
+      </div>
+
+      <!-- Priority Filter -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label class="filter-label">Priority</label>
+          <select id="task-priority-filter" class="filter-select">
+            <option value="">All Priorities</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Category</label>
+          <select id="task-category-filter" class="filter-select">
+            <option value="">All Categories</option>
+            <option value="school">School</option>
+            <option value="work">Work</option>
+            <option value="study">Study</option>
+            <option value="personal">Personal</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Tasks List -->
+      <div class="tasks-board" id="tasks-board">
+        <div class="empty-state">
+          <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+          <h3>No Tasks Yet</h3>
+          <p>Add your first task to stay organized</p>
+          <button class="btn btn--primary" id="add-task-btn-empty">
+            <ion-icon name="add-outline"></ion-icon>
+            Add Task
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CALENDAR SECTION ===== -->
+    <section class="section hidden" id="section-calendar" data-section="calendar">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Calendar</h2>
+          <p class="section-subtitle">Your unified schedule — classes, shifts, tasks & JLPT</p>
+        </div>
+        <div class="view-toggle">
+          <button class="view-btn view-btn--active" data-cal-view="month">Month</button>
+          <button class="view-btn" data-cal-view="week">Week</button>
+          <button class="view-btn" data-cal-view="day">Day</button>
+        </div>
+      </div>
+
+      <!-- Calendar Navigation -->
+      <div class="calendar-nav">
+        <button class="cal-nav-btn" id="cal-prev">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <h3 class="cal-current-period" id="cal-period-label"></h3>
+        <button class="cal-nav-btn" id="cal-next">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+        <button class="btn btn--outline btn--sm" id="cal-today-btn">Today</button>
+      </div>
+
+      <!-- Calendar Legend -->
+      <div class="calendar-legend">
+        <span class="legend-item legend-item--class"><span class="legend-dot"></span>Class</span>
+        <span class="legend-item legend-item--shift"><span class="legend-dot"></span>Work Shift</span>
+        <span class="legend-item legend-item--task"><span class="legend-dot"></span>Task</span>
+        <span class="legend-item legend-item--jlpt"><span class="legend-dot"></span>JLPT Exam</span>
+      </div>
+
+      <!-- Calendar Container -->
+      <div class="calendar-container" id="calendar-container">
+        <!-- Generated by JS -->
+      </div>
+
+      <!-- Day Event Detail Panel -->
+      <div class="cal-event-panel hidden" id="cal-event-panel">
+        <div class="cal-event-panel-header">
+          <h4 id="cal-event-panel-title">Events</h4>
+          <button class="cal-panel-close" id="cal-panel-close">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+        <div id="cal-event-panel-body"></div>
+      </div>
+    </section>
+
+    <!-- ===== SETTINGS SECTION ===== -->
+    <section class="section hidden" id="section-settings" data-section="settings">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Settings</h2>
+          <p class="section-subtitle">Manage your account and preferences</p>
+        </div>
+      </div>
+
+      <div class="settings-grid">
+
+        <!-- Profile Settings -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <h3>Profile Information</h3>
+          </div>
+          <form id="profile-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input type="text" id="profile-firstname" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" id="profile-lastname" class="form-input" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">University / School</label>
+              <input type="text" id="profile-university" class="form-input" placeholder="Waseda University" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Home Country</label>
+              <input type="text" id="profile-country" class="form-input" placeholder="United States" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Major / Field of Study</label>
+              <input type="text" id="profile-major" class="form-input" placeholder="Computer Science" />
+            </div>
+            <button type="submit" class="btn btn--primary">
+              <ion-icon name="save-outline"></ion-icon>
+              Save Profile
+            </button>
+          </form>
+        </div>
+
+        <!-- Preferences -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <ion-icon name="options-outline"></ion-icon>
+            <h3>Preferences</h3>
+          </div>
+          <form id="preferences-form">
+            <div class="form-group">
+              <label class="form-label">Currency Display</label>
+              <select id="pref-currency" class="form-input">
+                <option value="JPY">¥ Japanese Yen (JPY)</option>
+                <option value="USD">$ US Dollar (USD)</option>
+                <option value="EUR">€ Euro (EUR)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date Format</label>
+              <select id="pref-dateformat" class="form-input">
+                <option value="JP">YYYY/MM/DD (Japanese)</option>
+                <option value="US">MM/DD/YYYY (US)</option>
+                <option value="EU">DD/MM/YYYY (EU)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Week Starts On</label>
+              <select id="pref-weekstart" class="form-input">
+                <option value="monday">Monday</option>
+                <option value="sunday">Sunday</option>
+              </select>
+            </div>
+            <div class="form-group form-group--row form-group--switch">
+              <span class="form-label">Daily Study Reminder</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="pref-reminder" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <button type="submit" class="btn btn--primary">
+              <ion-icon name="save-outline"></ion-icon>
+              Save Preferences
+            </button>
+          </form>
+        </div>
+
+        <!-- Account -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <ion-icon name="shield-outline"></ion-icon>
+            <h3>Account Security</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="settings-email" class="form-input" readonly />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Member Since</label>
+            <input type="text" id="settings-joined" class="form-input" readonly />
+          </div>
+          <button class="btn btn--outline" id="change-password-btn">
+            <ion-icon name="key-outline"></ion-icon>
+            Change Password
+          </button>
+          <div class="settings-danger-zone">
+            <h4 class="danger-title">Danger Zone</h4>
+            <button class="btn btn--danger" id="delete-account-btn">
+              <ion-icon name="trash-outline"></ion-icon>
+              Delete Account
+            </button>
+          </div>
+        </div>
+
+        <!-- About -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <h3>About</h3>
+          </div>
+          <div class="about-info">
+            <div class="about-logo">
+              <div class="sidebar-logo-icon"><span class="logo-kanji">学</span></div>
+            </div>
+            <h4>Japanese Student Life Manager</h4>
+            <p class="about-version">Version 1.0.0</p>
+            <p class="about-desc">An all-in-one productivity dashboard for international students living and studying in Japan 🇯🇵</p>
+            <div class="about-links">
+              <a href="#" class="link">Documentation</a>
+              <a href="#" class="link">Report Issue</a>
+              <a href="#" class="link">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main><!-- /.main-content -->
+
+  <!-- ===== MODALS ===== -->
+
+  <!-- Class Modal -->
+  <div class="modal-overlay hidden" id="class-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="class-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="class-modal-title">Add Class</h3>
+        <button class="modal-close" data-modal="class-modal-overlay" aria-label="Close modal">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form id="class-form" class="modal-body" novalidate>
+        <input type="hidden" id="class-id" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Subject Name *</label>
+            <input type="text" id="class-subject" class="form-input" placeholder="e.g. Advanced Japanese" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teacher</label>
+            <input type="text" id="class-teacher" class="form-input" placeholder="e.g. Yamamoto-sensei" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Day of Week *</label>
+            <select id="class-day" class="form-input" required>
+              <option value="">Select Day</option>
+              <option value="Monday">Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+              <option value="Sunday">Sunday</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Classroom</label>
+            <input type="text" id="class-room" class="form-input" placeholder="e.g. Building A, Room 201" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Start Time *</label>
+            <input type="time" id="class-start" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">End Time *</label>
+            <input type="time" id="class-end" class="form-input" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Color Tag</label>
+          <div class="color-picker" id="class-color-picker">
+            <input type="color" id="class-color" class="color-input" value="#E63946" />
+            <span class="color-hint">Choose a color for this class</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <textarea id="class-notes" class="form-textarea" placeholder="Optional notes about this class..." rows="3"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--outline" data-modal="class-modal-overlay">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="class-submit-btn">
+            <ion-icon name="save-outline"></ion-icon>
+            Save Class
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Shift Modal -->
+  <div class="modal-overlay hidden" id="shift-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="shift-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="shift-modal-title">Log Work Shift</h3>
+        <button class="modal-close" data-modal="shift-modal-overlay" aria-label="Close modal">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form id="shift-form" class="modal-body" novalidate>
+        <input type="hidden" id="shift-id" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Workplace *</label>
+            <input type="text" id="shift-workplace" class="form-input" placeholder="e.g. Convenience Store" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date *</label>
+            <input type="date" id="shift-date" class="form-input" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Start Time *</label>
+            <input type="time" id="shift-start" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">End Time *</label>
+            <input type="time" id="shift-end" class="form-input" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Break (minutes)</label>
+            <input type="number" id="shift-break" class="form-input" placeholder="30" min="0" value="0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hourly Wage (¥) *</label>
+            <input type="number" id="shift-wage" class="form-input" placeholder="1100" min="0" required />
+          </div>
+        </div>
+        <!-- Calculated Preview -->
+        <div class="shift-calc-preview" id="shift-calc-preview">
+          <div class="calc-row">
+            <span>Worked Hours:</span>
+            <strong id="calc-hours">—</strong>
+          </div>
+          <div class="calc-row">
+            <span>Estimated Pay:</span>
+            <strong id="calc-pay">—</strong>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <textarea id="shift-notes" class="form-textarea" placeholder="Optional notes..." rows="2"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--outline" data-modal="shift-modal-overlay">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="shift-submit-btn">
+            <ion-icon name="save-outline"></ion-icon>
+            Save Shift
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Expense Modal -->
+  <div class="modal-overlay hidden" id="expense-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="expense-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="expense-modal-title">Add Expense</h3>
+        <button class="modal-close" data-modal="expense-modal-overlay" aria-label="Close modal">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form id="expense-form" class="modal-body" novalidate>
+        <input type="hidden" id="expense-id" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Description *</label>
+            <input type="text" id="expense-desc" class="form-input" placeholder="e.g. Lunch at Sukiya" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Amount (¥) *</label>
+            <input type="number" id="expense-amount" class="form-input" placeholder="500" min="0" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select id="expense-category" class="form-input" required>
+              <option value="">Select Category</option>
+              <option value="food">🍜 Food</option>
+              <option value="transportation">🚃 Transportation</option>
+              <option value="rent">🏠 Rent</option>
+              <option value="shopping">🛍️ Shopping</option>
+              <option value="entertainment">🎮 Entertainment</option>
+              <option value="study">📚 Study</option>
+              <option value="bills">💡 Bills</option>
+              <option value="other">📦 Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date *</label>
+            <input type="date" id="expense-date" class="form-input" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <textarea id="expense-notes" class="form-textarea" placeholder="Optional notes..." rows="2"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--outline" data-modal="expense-modal-overlay">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="expense-submit-btn">
+            <ion-icon name="save-outline"></ion-icon>
+            Save Expense
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Study Session Modal -->
+  <div class="modal-overlay hidden" id="study-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="study-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="study-modal-title">Log Study Session</h3>
+        <button class="modal-close" data-modal="study-modal-overlay" aria-label="Close modal">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form id="study-form" class="modal-body" novalidate>
+        <input type="hidden" id="study-id" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select id="study-category" class="form-input" required>
+              <option value="">Select Category</option>
+              <option value="vocabulary">📖 Vocabulary</option>
+              <option value="kanji">🈳 Kanji</option>
+              <option value="grammar">✏️ Grammar</option>
+              <option value="listening">🎧 Listening</option>
+              <option value="reading">📰 Reading</option>
+              <option value="speaking">🗣️ Speaking</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Duration (minutes) *</label>
+            <input type="number" id="study-duration" class="form-input" placeholder="30" min="1" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date *</label>
+          <input type="date" id="study-date" class="form-input" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <textarea id="study-notes" class="form-textarea" placeholder="What did you study? e.g. N3 grammar patterns, JLPT vocab list..." rows="3"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--outline" data-modal="study-modal-overlay">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="study-submit-btn">
+            <ion-icon name="save-outline"></ion-icon>
+            Save Session
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Task Modal -->
+  <div class="modal-overlay hidden" id="task-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="task-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="task-modal-title">Add Task</h3>
+        <button class="modal-close" data-modal="task-modal-overlay" aria-label="Close modal">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <form id="task-form" class="modal-body" novalidate>
+        <input type="hidden" id="task-id" />
+        <div class="form-group">
+          <label class="form-label">Task Title *</label>
+          <input type="text" id="task-title" class="form-input" placeholder="e.g. Submit assignment" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea id="task-desc" class="form-textarea" placeholder="Optional task description..." rows="2"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Priority *</label>
+            <select id="task-priority" class="form-input" required>
+              <option value="">Select Priority</option>
+              <option value="high">🔴 High</option>
+              <option value="medium">🟡 Medium</option>
+              <option value="low">🟢 Low</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select id="task-category" class="form-input">
+              <option value="school">School</option>
+              <option value="work">Work</option>
+              <option value="study">Study</option>
+              <option value="personal">Personal</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Due Date</label>
+            <input type="date" id="task-due" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Due Time</label>
+            <input type="time" id="task-due-time" class="form-input" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--outline" data-modal="task-modal-overlay">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="task-submit-btn">
+            <ion-icon name="save-outline"></ion-icon>
+            Save Task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-overlay hidden" id="confirm-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title">
+    <div class="modal modal--sm">
+      <div class="modal-header">
+        <h3 class="modal-title" id="confirm-modal-title">Confirm Delete</h3>
+        <button class="modal-close" data-modal="confirm-modal-overlay" aria-label="Close modal">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="confirm-icon">
+          <ion-icon name="warning-outline"></ion-icon>
+        </div>
+        <p id="confirm-message">Are you sure you want to delete this item? This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn--outline" data-modal="confirm-modal-overlay">Cancel</button>
+        <button class="btn btn--danger" id="confirm-delete-btn">
+          <ion-icon name="trash-outline"></ion-icon>
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/schedule.js"></script>
+  <script src="js/shifts.js"></script>
+  <script src="js/expenses.js"></script>
+  <script src="js/study.js"></script>
+  <script src="js/jlpt.js"></script>
+  <script src="js/tasks.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

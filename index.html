@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Japanese Student Life Manager 🇯🇵</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body class="auth-page">
+
+  <!-- ===== AUTH CONTAINER ===== -->
+  <div class="auth-container">
+
+    <!-- Decorative background -->
+    <div class="auth-bg">
+      <div class="auth-bg-circle auth-bg-circle--1"></div>
+      <div class="auth-bg-circle auth-bg-circle--2"></div>
+      <div class="auth-bg-circle auth-bg-circle--3"></div>
+    </div>
+
+    <!-- Auth Card -->
+    <div class="auth-card">
+
+      <!-- Logo / Branding -->
+      <div class="auth-logo">
+        <div class="auth-logo-icon">
+          <span class="logo-kanji">学</span>
+        </div>
+        <h1 class="auth-title">Student Life Manager</h1>
+        <p class="auth-subtitle">日本留学生活マネージャー</p>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="auth-tabs">
+        <button class="auth-tab auth-tab--active" data-tab="login" id="tab-login">
+          Login
+        </button>
+        <button class="auth-tab" data-tab="signup" id="tab-signup">
+          Sign Up
+        </button>
+      </div>
+
+      <!-- Notification area -->
+      <div id="auth-notification" class="auth-notification hidden"></div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="login-email" class="form-label">
+            <ion-icon name="mail-outline"></ion-icon>
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="login-email"
+            name="email"
+            class="form-input"
+            placeholder="your@email.com"
+            autocomplete="email"
+            required
+          />
+          <span class="form-error" id="login-email-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="login-password" class="form-label">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            Password
+          </label>
+          <div class="input-password-wrapper">
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              class="form-input"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+            <button type="button" class="toggle-password" data-target="login-password" aria-label="Toggle password visibility">
+              <ion-icon name="eye-outline"></ion-icon>
+            </button>
+          </div>
+          <span class="form-error" id="login-password-error"></span>
+        </div>
+
+        <div class="form-group form-group--row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="remember-me" />
+            <span>Remember me</span>
+          </label>
+          <button type="button" class="forgot-password-btn" id="forgot-password-btn">
+            Forgot password?
+          </button>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full" id="login-btn">
+          <span class="btn-text">Login</span>
+          <span class="btn-loader hidden">
+            <ion-icon name="reload-outline" class="spin"></ion-icon>
+          </span>
+        </button>
+
+        <div class="auth-divider">
+          <span>or continue with</span>
+        </div>
+
+        <button type="button" class="btn btn--google" id="google-login-btn">
+          <ion-icon name="logo-google"></ion-icon>
+          Continue with Google
+        </button>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="signup-form" class="auth-form hidden" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="signup-firstname" class="form-label">
+              <ion-icon name="person-outline"></ion-icon>
+              First Name
+            </label>
+            <input
+              type="text"
+              id="signup-firstname"
+              name="firstname"
+              class="form-input"
+              placeholder="Tanaka"
+              autocomplete="given-name"
+              required
+            />
+            <span class="form-error" id="signup-firstname-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="signup-lastname" class="form-label">
+              <ion-icon name="person-outline"></ion-icon>
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="signup-lastname"
+              name="lastname"
+              class="form-input"
+              placeholder="Yuki"
+              autocomplete="family-name"
+              required
+            />
+            <span class="form-error" id="signup-lastname-error"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-email" class="form-label">
+            <ion-icon name="mail-outline"></ion-icon>
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="signup-email"
+            name="email"
+            class="form-input"
+            placeholder="your@email.com"
+            autocomplete="email"
+            required
+          />
+          <span class="form-error" id="signup-email-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-university" class="form-label">
+            <ion-icon name="school-outline"></ion-icon>
+            University / School
+          </label>
+          <input
+            type="text"
+            id="signup-university"
+            name="university"
+            class="form-input"
+            placeholder="Waseda University"
+            autocomplete="organization"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-password" class="form-label">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            Password
+          </label>
+          <div class="input-password-wrapper">
+            <input
+              type="password"
+              id="signup-password"
+              name="password"
+              class="form-input"
+              placeholder="Min. 8 characters"
+              autocomplete="new-password"
+              required
+            />
+            <button type="button" class="toggle-password" data-target="signup-password" aria-label="Toggle password visibility">
+              <ion-icon name="eye-outline"></ion-icon>
+            </button>
+          </div>
+          <div class="password-strength" id="password-strength">
+            <div class="strength-bars">
+              <span class="strength-bar"></span>
+              <span class="strength-bar"></span>
+              <span class="strength-bar"></span>
+              <span class="strength-bar"></span>
+            </div>
+            <span class="strength-label" id="strength-label">Password strength</span>
+          </div>
+          <span class="form-error" id="signup-password-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-confirm-password" class="form-label">
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+            Confirm Password
+          </label>
+          <div class="input-password-wrapper">
+            <input
+              type="password"
+              id="signup-confirm-password"
+              name="confirm-password"
+              class="form-input"
+              placeholder="Repeat your password"
+              autocomplete="new-password"
+              required
+            />
+            <button type="button" class="toggle-password" data-target="signup-confirm-password" aria-label="Toggle password visibility">
+              <ion-icon name="eye-outline"></ion-icon>
+            </button>
+          </div>
+          <span class="form-error" id="signup-confirm-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="terms-agree" required />
+            <span>I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a></span>
+          </label>
+          <span class="form-error" id="terms-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full" id="signup-btn">
+          <span class="btn-text">Create Account</span>
+          <span class="btn-loader hidden">
+            <ion-icon name="reload-outline" class="spin"></ion-icon>
+          </span>
+        </button>
+      </form>
+
+      <!-- Footer -->
+      <p class="auth-footer">
+        © 2025 Japanese Student Life Manager. Built for international students in Japan 🇯🇵
+      </p>
+    </div>
+
+  </div><!-- /.auth-container -->
+
+  <!-- Config must load first -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
